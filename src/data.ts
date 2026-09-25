@@ -27,7 +27,7 @@ export const treatments = [
   {
     name:'' ,
     description: 'Thoughtful skincare experiences designed around individual skin needs.',
-    image: 'https://images.pexels.com/photos/6635922/pexels-photo-6635922.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://images.pexels.com/photos/6925495/pexels-photo-6925495.jpeg',
     alt: 'Woman applying moisturizing cream to her cheek',
   },
   {
@@ -39,20 +39,20 @@ export const treatments = [
   {
     name: 'Skin Rejuvenation',
     description: 'Aesthetic skincare experiences designed to support a healthy-looking glow.',
-    image: 'https://images.pexels.com/photos/37229280/pexels-photo-37229280.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://images.pexels.com/photos/30809948/pexels-photo-30809948.jpeg',
     alt: 'Woman receiving a calming facial massage at a spa',
   },
   {
     name: 'Beauty Care',
     description: 'Refined beauty treatments designed to complement your skincare routine.',
-    image: 'https://images.pexels.com/photos/4202321/pexels-photo-4202321.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://images.pexels.com/photos/10756338/pexels-photo-10756338.jpeg',
     alt: 'Skincare products and cosmetic containers on a marble shelf',
   },
 ];
 
 export const galleryImages = [
   {
-    url: 'https://images.pexels.com/photos/37229301/pexels-photo-37229301.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    url: 'https://images.pexels.com/photos/5927810/pexels-photo-5927810.jpeg',
     alt: 'Woman receiving a soothing facial mask at a spa',
     span: '',
   },
@@ -84,7 +84,7 @@ export const galleryImages = [
 ];
 export const heroImage = '/images/hero.jpg';
 
-export const aboutImage = 'https://images.pexels.com/photos/6663439/pexels-photo-6663439.jpeg?auto=compress&cs=tinysrgb&h=650&w=940';
+export const aboutImage = 'https://images.pexels.com/photos/4153624/pexels-photo-4153624.jpeg';
 
 export const experienceImage = 'https://images.pexels.com/photos/11024140/pexels-photo-11024140.jpeg?auto=compress&cs=tinysrgb&h=650&w=940';
 

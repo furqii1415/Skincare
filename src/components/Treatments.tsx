@@ -31,7 +31,7 @@ export default function Treatments() {
               key={treatment.name}
               className={`group cursor-pointer reveal reveal-delay-${i + 1} ${isVisible ? 'is-visible' : ''}`}
             >
-              <div className="zoom-img relative aspect-[3/4] overflow-hidden">
+             <div className="zoom-img relative aspect-[6/7] overflow-hidden">
                 <img
                   src={treatment.image}
                   alt={treatment.alt}
