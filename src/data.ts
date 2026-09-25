@@ -54,7 +54,7 @@ export const galleryImages = [
   {
     url: 'https://images.pexels.com/photos/37229301/pexels-photo-37229301.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     alt: 'Woman receiving a soothing facial mask at a spa',
-    span: 'lg:col-span-2 lg:row-span-2',
+    span: '',
   },
   {
     url: 'https://images.pexels.com/photos/8015809/pexels-photo-8015809.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
@@ -69,7 +69,7 @@ export const galleryImages = [
   {
     url: 'https://images.pexels.com/photos/17640381/pexels-photo-17640381.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     alt: 'Modern spa waiting area with beige furniture and plants',
-    span: 'lg:col-span-2',
+    span: '',
   },
   {
     url: 'https://images.pexels.com/photos/29755259/pexels-photo-29755259.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
@@ -82,7 +82,6 @@ export const galleryImages = [
     span: '',
   },
 ];
-
 export const heroImage = '/images/hero.jpg';
 
 export const aboutImage = 'https://images.pexels.com/photos/6663439/pexels-photo-6663439.jpeg?auto=compress&cs=tinysrgb&h=650&w=940';
