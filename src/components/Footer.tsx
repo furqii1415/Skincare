@@ -1,8 +1,11 @@
-import { Phone, MapPin } from 'lucide-react';
+import { Phone, MapPin, Instagram } from 'lucide-react';
 import { businessInfo, navLinks } from '@/data';
 
 export default function Footer() {
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
     e.preventDefault();
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -11,23 +14,31 @@ export default function Footer() {
     <footer className="bg-cocoa text-ivory">
       <div className="section-padding py-16 lg:py-20">
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 lg:gap-16">
+
           {/* Brand */}
           <div>
             <h3 className="font-serif text-2xl tracking-wide">
               {businessInfo.name.toUpperCase()}
             </h3>
+
             <p className="text-ivory/50 mt-4 leading-relaxed max-w-xs text-sm">
               A refined skincare and beauty experience in DHA Phase 6, Lahore.
             </p>
+
             <div className="flex items-center gap-3 mt-6">
               <span className="w-8 h-px bg-champagne" />
-              <span className="text-xs uppercase tracking-ultra-wide text-champagne/70">Skin • Beauty • Wellness</span>
+              <span className="text-xs uppercase tracking-ultra-wide text-champagne/70">
+                Skin • Beauty • Wellness
+              </span>
             </div>
           </div>
 
           {/* Links */}
           <div>
-            <h4 className="text-xs uppercase tracking-widest text-champagne mb-6">Navigate</h4>
+            <h4 className="text-xs uppercase tracking-widest text-champagne mb-6">
+              Navigate
+            </h4>
+
             <ul className="space-y-3">
               {navLinks.map((link) => (
                 <li key={link.href}>
@@ -45,24 +56,61 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-xs uppercase tracking-widest text-champagne mb-6">Contact</h4>
+            <h4 className="text-xs uppercase tracking-widest text-champagne mb-6">
+              Contact
+            </h4>
+
             <div className="space-y-4">
+
+              {/* Phone */}
               <a
                 href={`tel:${businessInfo.phone}`}
                 className="flex items-center gap-3 text-ivory/60 hover:text-ivory transition-colors duration-300"
               >
-                <Phone className="w-4 h-4 text-champagne" strokeWidth={1.5} />
-                <span className="text-sm">{businessInfo.phoneDisplay}</span>
+                <Phone
+                  className="w-4 h-4 text-champagne"
+                  strokeWidth={1.5}
+                />
+
+                <span className="text-sm">
+                  {businessInfo.phoneDisplay}
+                </span>
               </a>
+
+              {/* Address */}
               <div className="flex items-start gap-3 text-ivory/60">
-                <MapPin className="w-4 h-4 text-champagne flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+                <MapPin
+                  className="w-4 h-4 text-champagne flex-shrink-0 mt-0.5"
+                  strokeWidth={1.5}
+                />
+
                 <address className="not-italic text-sm leading-relaxed">
                   {businessInfo.addressLines.map((line, i) => (
-                    <span key={i} className="block">{line}</span>
+                    <span key={i} className="block">
+                      {line}
+                    </span>
                   ))}
                 </address>
               </div>
+
             </div>
+
+            {/* Instagram */}
+            <a
+              href="https://www.instagram.com/glowwithgullofficial/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 mt-6 text-ivory/60 hover:text-ivory transition-colors duration-300"
+            >
+              <Instagram
+                className="w-5 h-5 text-champagne"
+                strokeWidth={1.5}
+              />
+
+              <span className="text-sm">
+                Follow us on Instagram
+              </span>
+            </a>
           </div>
         </div>
       </div>
@@ -71,12 +119,15 @@ export default function Footer() {
       <div className="border-t border-ivory/10">
         <div className="section-padding py-6">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+
             <p className="text-ivory/40 text-xs tracking-wide">
               © {businessInfo.year} {businessInfo.name}. All rights reserved.
             </p>
+
             <p className="text-ivory/40 text-xs tracking-wide">
               DHA Phase 6 • Lahore • Pakistan
             </p>
+
           </div>
         </div>
       </div>

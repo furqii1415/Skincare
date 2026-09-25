@@ -25,7 +25,7 @@ export const navLinks = [
 
 export const treatments = [
   {
-    name: 'Skin Care',
+    name:'' ,
     description: 'Thoughtful skincare experiences designed around individual skin needs.',
     image: 'https://images.pexels.com/photos/6635922/pexels-photo-6635922.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     alt: 'Woman applying moisturizing cream to her cheek',
@@ -83,7 +83,7 @@ export const galleryImages = [
   },
 ];
 
-export const heroImage = 'https://images.pexels.com/photos/3762776/pexels-photo-3762776.jpeg?auto=compress&cs=tinysrgb&h=650&w=940';
+export const heroImage = '/images/hero.jpg';
 
 export const aboutImage = 'https://images.pexels.com/photos/6663439/pexels-photo-6663439.jpeg?auto=compress&cs=tinysrgb&h=650&w=940';
 
