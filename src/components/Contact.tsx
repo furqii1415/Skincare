@@ -4,6 +4,7 @@ import {
   Phone,
   MapPin,
   Navigation,
+  Clock,
   Check,
   ChevronDown,
   ChevronLeft,
@@ -25,8 +26,9 @@ export default function Contact() {
 
   const [calendarDate, setCalendarDate] = useState(new Date());
 
-  const directionsUrl =
-    "https://maps.app.goo.gl/KnBwHPdCbrSXHhQE9";
+  const [validationError, setValidationError] = useState("");
+
+  const directionsUrl = "https://maps.app.goo.gl/KnBwHPdCbrSXHhQE9";
 
   const treatmentOptions = [
     ...treatments.map((t) => t.name),
@@ -64,9 +66,10 @@ export default function Contact() {
   const formatDate = (day: number) => {
     const date = new Date(year, month, day);
 
-    return `${date.getFullYear()}-${String(
-      date.getMonth() + 1,
-    ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+      2,
+      "0",
+    )}-${String(date.getDate()).padStart(2, "0")}`;
   };
 
   const displayDate = selectedDate
@@ -84,20 +87,38 @@ export default function Contact() {
     return date < today;
   };
 
-  return (
-    <section
-      id="contact"
-      className="section-padding py-24 lg:py-36 bg-ivory"
-    >
-      <div ref={ref} className="max-w-7xl mx-auto">
+  // Form validation
+  const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
+    if (!selectedDate) {
+      setValidationError("Please select your preferred date.");
+      setDateOpen(true);
+      setDropdownOpen(false);
+      return;
+    }
+
+    if (!selectedTreatment) {
+      setValidationError("Please select a treatment or service.");
+      setDropdownOpen(true);
+      setDateOpen(false);
+      return;
+    }
+
+    setValidationError("");
+
+    await handleSubmit(e);
+  };
+
+  return (
+    <section id="contact" className="section-padding py-24 lg:py-36 bg-ivory">
+      <div ref={ref} className="max-w-7xl mx-auto">
         {/* HEADING */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <div
             className={`flex items-center justify-center gap-3 reveal ${
               isVisible ? "is-visible" : ""
-            }`}
-          >
+            }`}>
             <span className="w-8 h-px bg-champagne" />
             <span className="eyebrow">Contact</span>
             <span className="w-8 h-px bg-champagne" />
@@ -106,24 +127,19 @@ export default function Contact() {
           <h2
             className={`font-serif text-4xl md:text-5xl text-cocoa mt-6 leading-tight reveal reveal-delay-1 ${
               isVisible ? "is-visible" : ""
-            }`}
-          >
+            }`}>
             Visit Glow with Gull
           </h2>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-
           {/* LEFT SIDE */}
           <div
             className={`reveal reveal-delay-2 ${
               isVisible ? "is-visible" : ""
-            }`}
-          >
+            }`}>
             <div className="bg-nude/20 p-8 lg:p-10">
-              <h3 className="font-serif text-2xl text-cocoa mb-6">
-                Location
-              </h3>
+              <h3 className="font-serif text-2xl text-cocoa mb-6">Location</h3>
 
               <div className="flex gap-3 items-start mb-6">
                 <MapPin
@@ -148,17 +164,63 @@ export default function Contact() {
 
                 <a
                   href={`tel:${businessInfo.phone}`}
-                  className="text-cocoa/70 hover:text-cocoa transition-colors duration-300"
-                >
+                  className="text-cocoa/70 hover:text-cocoa transition-colors duration-300">
                   {businessInfo.phoneDisplay}
                 </a>
+              </div>
+              {/* OPENING HOURS */}
+              <div className="flex gap-3 items-start mb-8">
+                <Clock
+                  className="w-5 h-5 text-champagne flex-shrink-0 mt-1"
+                  strokeWidth={1.5}
+                />
+
+                <div className="text-cocoa/70 leading-relaxed">
+                  <p className="text-cocoa font-medium mb-2">Opening Hours</p>
+
+                  <div className="space-y-1 text-sm">
+                    <div className="flex justify-between gap-8">
+                      <span>Monday</span>
+                      <span>11:30 AM – 8:00 PM</span>
+                    </div>
+
+                    <div className="flex justify-between gap-8">
+                      <span>Tuesday</span>
+                      <span>11:30 AM – 8:00 PM</span>
+                    </div>
+
+                    <div className="flex justify-between gap-8">
+                      <span>Wednesday</span>
+                      <span>11:30 AM – 8:00 PM</span>
+                    </div>
+
+                    <div className="flex justify-between gap-8">
+                      <span>Thursday</span>
+                      <span>11:30 AM – 8:00 PM</span>
+                    </div>
+
+                    <div className="flex justify-between gap-8">
+                      <span>Friday</span>
+                      <span>11:30 AM – 8:00 PM</span>
+                    </div>
+
+                    <div className="flex justify-between gap-8">
+                      <span>Saturday</span>
+                      <span>11:30 AM – 8:00 PM</span>
+                    </div>
+
+                    <div className="flex justify-between gap-8">
+                      <span>Sunday</span>
+                      <span>11:30 AM – 8:00 PM</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3">
                 <a
                   href={`tel:${businessInfo.phone}`}
-                  className="btn-primary !py-3"
-                >
+                  className="btn-primary !py-3">
                   <Phone className="w-4 h-4" />
                   Call Now
                 </a>
@@ -167,8 +229,7 @@ export default function Contact() {
                   href={directionsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-secondary"
-                >
+                  className="btn-secondary">
                   <Navigation className="w-4 h-4" />
                   Get Directions
                 </a>
@@ -180,8 +241,7 @@ export default function Contact() {
               href={directionsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 relative aspect-[16/10] bg-nude/30 overflow-hidden border border-cocoa/10 block group"
-            >
+              className="mt-6 relative aspect-[16/10] bg-nude/30 overflow-hidden border border-cocoa/10 block group">
               <div
                 className="absolute inset-0 opacity-[0.03]"
                 style={{
@@ -222,8 +282,7 @@ export default function Contact() {
           <div
             className={`reveal reveal-delay-3 ${
               isVisible ? "is-visible" : ""
-            }`}
-          >
+            }`}>
             <h3 className="font-serif text-2xl text-cocoa mb-2">
               Request an Appointment
             </h3>
@@ -239,21 +298,19 @@ export default function Contact() {
                 <Check className="w-5 h-5 text-sage-dark flex-shrink-0" />
 
                 <p className="text-sm text-cocoa">
-                  Thank you. Your appointment request has been received. We
-                  will contact you shortly.
+                  Thank you. Your appointment request has been received. We will
+                  contact you shortly.
                 </p>
               </div>
             )}
 
             {/* FORM */}
-            <form onSubmit={handleSubmit} className="space-y-5">
-
+            <form onSubmit={submitForm} className="space-y-5">
               {/* NAME */}
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-xs uppercase tracking-widest text-cocoa/60 mb-2"
-                >
+                  className="block text-xs uppercase tracking-widest text-cocoa/60 mb-2">
                   Name
                 </label>
 
@@ -269,13 +326,11 @@ export default function Contact() {
 
               {/* PHONE + DATE */}
               <div className="grid sm:grid-cols-2 gap-5">
-
                 {/* PHONE */}
                 <div>
                   <label
                     htmlFor="phone"
-                    className="block text-xs uppercase tracking-widest text-cocoa/60 mb-2"
-                  >
+                    className="block text-xs uppercase tracking-widest text-cocoa/60 mb-2">
                     Phone Number
                   </label>
 
@@ -288,8 +343,10 @@ export default function Contact() {
                     pattern="[0-9]*"
                     maxLength={11}
                     onInput={(e) => {
-                      e.currentTarget.value =
-                        e.currentTarget.value.replace(/\D/g, "");
+                      e.currentTarget.value = e.currentTarget.value.replace(
+                        /\D/g,
+                        "",
+                      );
                     }}
                     className="w-full bg-transparent border-b border-cocoa/20 py-3 text-cocoa placeholder-cocoa/30 focus:border-champagne outline-none transition-colors duration-300 font-serif tracking-wide"
                     placeholder="XXXXXXXXXXX"
@@ -300,8 +357,7 @@ export default function Contact() {
                 <div className="relative">
                   <label
                     htmlFor="date"
-                    className="block text-xs uppercase tracking-widest text-cocoa/60 mb-2"
-                  >
+                    className="block text-xs uppercase tracking-widest text-cocoa/60 mb-2">
                     Preferred Date
                   </label>
 
@@ -317,18 +373,17 @@ export default function Contact() {
                     onClick={() => {
                       setDateOpen(!dateOpen);
                       setDropdownOpen(false);
+                      setValidationError("");
                     }}
                     className={`w-full flex items-center justify-between bg-ivory border border-cocoa/15 rounded-xl px-4 py-3.5 text-left outline-none cursor-pointer transition-all duration-300 ease-out ${
                       dateOpen
                         ? "border-champagne ring-4 ring-champagne/10 shadow-[0_6px_20px_rgba(48,39,37,0.08)]"
                         : "hover:border-champagne hover:shadow-[0_4px_16px_rgba(48,39,37,0.07)]"
-                    }`}
-                  >
+                    }`}>
                     <span
                       className={`font-serif tracking-wide ${
                         selectedDate ? "text-cocoa" : "text-cocoa/40"
-                      }`}
-                    >
+                      }`}>
                       {displayDate}
                     </span>
 
@@ -344,20 +399,15 @@ export default function Contact() {
                       dateOpen
                         ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
                         : "opacity-0 -translate-y-2 scale-[0.98] pointer-events-none"
-                    }`}
-                  >
+                    }`}>
                     <div className="p-4">
-
                       <div className="flex items-center justify-between mb-5">
                         <button
                           type="button"
                           onClick={() =>
-                            setCalendarDate(
-                              new Date(year, month - 1, 1),
-                            )
+                            setCalendarDate(new Date(year, month - 1, 1))
                           }
-                          className="w-8 h-8 rounded-full flex items-center justify-center text-cocoa/60 hover:bg-nude/40 hover:text-cocoa"
-                        >
+                          className="w-8 h-8 rounded-full flex items-center justify-center text-cocoa/60 hover:bg-nude/40 hover:text-cocoa">
                           <ChevronLeft className="w-4 h-4" />
                         </button>
 
@@ -368,12 +418,9 @@ export default function Contact() {
                         <button
                           type="button"
                           onClick={() =>
-                            setCalendarDate(
-                              new Date(year, month + 1, 1),
-                            )
+                            setCalendarDate(new Date(year, month + 1, 1))
                           }
-                          className="w-8 h-8 rounded-full flex items-center justify-center text-cocoa/60 hover:bg-nude/40 hover:text-cocoa"
-                        >
+                          className="w-8 h-8 rounded-full flex items-center justify-center text-cocoa/60 hover:bg-nude/40 hover:text-cocoa">
                           <ChevronRight className="w-4 h-4" />
                         </button>
                       </div>
@@ -383,8 +430,7 @@ export default function Contact() {
                           (day) => (
                             <div
                               key={day}
-                              className="text-center text-[10px] uppercase tracking-wider text-cocoa/40 py-2"
-                            >
+                              className="text-center text-[10px] uppercase tracking-wider text-cocoa/40 py-2">
                               {day}
                             </div>
                           ),
@@ -395,10 +441,7 @@ export default function Contact() {
                         {calendarDays.map((day, index) => {
                           if (day === null) {
                             return (
-                              <div
-                                key={`empty-${index}`}
-                                className="h-9"
-                              />
+                              <div key={`empty-${index}`} className="h-9" />
                             );
                           }
 
@@ -415,21 +458,19 @@ export default function Contact() {
                               onClick={() => {
                                 setSelectedDate(value);
                                 setDateOpen(false);
+                                setValidationError("");
                               }}
                               className={`h-9 w-full rounded-lg text-sm font-serif transition-all duration-200 ${
                                 past
                                   ? "text-cocoa/20 cursor-not-allowed"
                                   : "text-cocoa hover:bg-nude/40 hover:scale-105"
                               } ${
-                                isSelected
-                                  ? "bg-champagne text-cocoa"
-                                  : ""
+                                isSelected ? "bg-champagne text-cocoa" : ""
                               } ${
                                 isToday && !isSelected
                                   ? "border border-champagne/60"
                                   : ""
-                              }`}
-                            >
+                              }`}>
                               {day}
                             </button>
                           );
@@ -444,8 +485,7 @@ export default function Contact() {
               <div className="relative">
                 <label
                   htmlFor="service"
-                  className="block text-xs uppercase tracking-widest text-cocoa/60 mb-2"
-                >
+                  className="block text-xs uppercase tracking-widest text-cocoa/60 mb-2">
                   Treatment / Service
                 </label>
 
@@ -461,18 +501,17 @@ export default function Contact() {
                   onClick={() => {
                     setDropdownOpen(!dropdownOpen);
                     setDateOpen(false);
+                    setValidationError("");
                   }}
                   className={`w-full flex items-center justify-between bg-ivory border border-cocoa/15 rounded-xl px-4 py-3.5 text-left outline-none cursor-pointer transition-all duration-300 ease-out ${
                     dropdownOpen
                       ? "border-champagne ring-4 ring-champagne/10"
                       : "hover:border-champagne"
-                  }`}
-                >
+                  }`}>
                   <span
                     className={`font-serif tracking-wide ${
                       selectedTreatment ? "text-cocoa" : "text-cocoa/40"
-                    }`}
-                  >
+                    }`}>
                     {selectedTreatment || "Select a treatment"}
                   </span>
 
@@ -488,8 +527,7 @@ export default function Contact() {
                     dropdownOpen
                       ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
                       : "opacity-0 -translate-y-2 scale-[0.98] pointer-events-none"
-                  }`}
-                >
+                  }`}>
                   <div className="p-1.5">
                     {treatmentOptions.map((option) => (
                       <button
@@ -498,13 +536,11 @@ export default function Contact() {
                         onClick={() => {
                           setSelectedTreatment(option);
                           setDropdownOpen(false);
+                          setValidationError("");
                         }}
                         className={`w-full text-left px-4 py-3 rounded-lg text-sm font-serif tracking-wide text-cocoa hover:bg-nude/40 hover:pl-5 transition-all duration-200 ${
-                          selectedTreatment === option
-                            ? "bg-nude/30"
-                            : ""
-                        }`}
-                      >
+                          selectedTreatment === option ? "bg-nude/30" : ""
+                        }`}>
                         {option}
                       </button>
                     ))}
@@ -512,12 +548,16 @@ export default function Contact() {
                 </div>
               </div>
 
+              {/* VALIDATION ERROR */}
+              {validationError && (
+                <p className="text-sm text-red-600">{validationError}</p>
+              )}
+
               {/* MESSAGE */}
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-xs uppercase tracking-widest text-cocoa/60 mb-2"
-                >
+                  className="block text-xs uppercase tracking-widest text-cocoa/60 mb-2">
                   Message
                 </label>
 
@@ -542,11 +582,8 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={formState.submitting}
-                className="btn-primary w-full mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {formState.submitting
-                  ? "Sending..."
-                  : "Request Appointment"}
+                className="btn-primary w-full mt-4 disabled:opacity-50 disabled:cursor-not-allowed">
+                {formState.submitting ? "Sending..." : "Request Appointment"}
               </button>
             </form>
           </div>
